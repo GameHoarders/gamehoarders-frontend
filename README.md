@@ -7,5 +7,7 @@
 5. **`Abd Al Rhman`** (Team Member)
 6. **`Mu'nis Yaseen`** (Team Member)
 
-## [Team Agreement](TeamAgreement.md)
+## [Team Agreement](PrepareforProject/TeamAgreement.md)
+
+## [Pitch Idea](PrepareforProject/PitchIdea.md)
 
