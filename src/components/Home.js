@@ -18,7 +18,7 @@ class Home extends Component {
     {
         event.preventDefault();
         await this.setState({
-            gameName:event.targe.searchForGame.value
+            gameName:event.target.searchForGame.value
         });
         try{
             let urlSite = `${process.env.REACT_APP_SERVER}/home/search?gameName=${this.state.gameName}`;

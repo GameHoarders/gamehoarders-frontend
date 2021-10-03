@@ -21,14 +21,14 @@ class Header extends Component {
             <div>
                 <>
                     <header>
-                        <img className="logoImg" src={logo}/>
+                        <img className="logoImg" src={logo} />
                         <div class="navigation">
-                        <div class ="navigation-items">
-                        <a href="#">Home</a>
-                        <a href="#">Profile</a>
-                        <a href="#">About Us</a>
-                        {/* <Button variant="primary">Log In</Button> */}
-                        </div>
+                            <div class="navigation-items">
+                                <a href="#">Home</a>
+                                <a href="#">Profile</a>
+                                <a href="#">About Us</a>
+                                {/* <Button variant="primary">Log In</Button> */}
+                            </div>
                         </div>
                     </header>
                 </>
@@ -37,7 +37,7 @@ class Header extends Component {
                         <Carousel.Item>
                             <img
                                 className="d-block w-100"
-                                src={`${img1}?text=First slide&bg=373940`}/>
+                                src={`${img1}?text=First slide&bg=373940`} />
                             <Carousel.Caption>
                                 <h3>Call Of Duty</h3>
                             </Carousel.Caption>
@@ -83,7 +83,7 @@ class Header extends Component {
                             <img
                                 className="d-block w-100"
                                 src={`${img6}?text=Third slide&bg=20232a`}
-                                alt="Third slide"
+                            // alt="Third slide"
                             />
                             <Carousel.Caption>
                                 <h3>Need For Speed</h3>
