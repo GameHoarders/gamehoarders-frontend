@@ -43,6 +43,7 @@ class Header extends Component {
                                 <Link to="/profile">Profile</Link>
                                 {/* <a href="#">About Us</a> */}
                                 <Link to="/aboutUs">AboutUs</Link>
+
                                 {/* <Button variant="primary">Log In</Button> */}
                             </div>
                         </div>
@@ -99,7 +100,7 @@ class Header extends Component {
                             <img
                                 className="d-block w-100"
                                 src={`${img6}?text=Third slide&bg=20232a`}
-                                alt="Third slide"
+                            // alt="Third slide"
                             />
                             <Carousel.Caption>
                                 <h3>Need For Speed</h3>
