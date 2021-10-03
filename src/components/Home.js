@@ -4,6 +4,8 @@ import Button from 'react-bootstrap/Button'
 import './styleForHome.css';
 import axios from 'axios';
 import CardForSearch from './CardForSearch'
+import Profile from './Profile'
+// import { withAuth0 } from '@auth0/auth0-react';
 class Home extends Component {
     constructor(props){
         super(props);
@@ -11,14 +13,15 @@ class Home extends Component {
             game:[],
             gameName:'',
             showGame:false,
-            showError:false
+            showError:false,
+            showProfile:false
         }
     }
     search = async (event)=>
     {
         event.preventDefault();
         await this.setState({
-            gameName:event.targe.searchForGame.value
+            gameName:event.target.searchForGame.value
         });
         try{
             let urlSite = `${process.env.REACT_APP_SERVER}/home/search?gameName=${this.state.gameName}`;
@@ -35,7 +38,7 @@ class Home extends Component {
             })
         }
     }
-
+    profile = () =>{this.setState({showProfile:true});}
     render() {
         return (
             <div>
@@ -55,10 +58,17 @@ class Home extends Component {
                 </>
                 {/* https://api.rawg.io/api/games?key=31ed97f5afa843cba25e360868e7e2be&ordering=-rating */}
                 <>
+                {this.state.showProfile &&
+                <Profile showprofileProps={this.profile}/>
+                }
 
                 {this.state.game.map((item,index)=>{
                     return <CardForSearch  key={index} game={item} />
                 })}
+
+                
+
+
                 </>
             </div>
         )
