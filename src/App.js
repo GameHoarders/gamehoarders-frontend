@@ -5,11 +5,21 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 
 class App extends Component {
+  constructor(props){
+    super (props);
+    this.state ={
+      showHome : true,
+      showGamePage: false
+    }
+  }
+  // homeHandler  = ()=>{
+  //   this.set
+  // }
   render() {
     return (
       <div>
         <Header/>
-        <Home/>
+        <Home />
         <Footer/>
       </div>
     )
