@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Carousel from 'react-bootstrap/Carousel'
-import Button from 'react-bootstrap/Button'
+// import Button from 'react-bootstrap/Button'
 import logo from './logo/GameHoarders21.png'
 import img1 from './image/1.jpg'
 import img2 from './image/2.jpg'
@@ -14,19 +14,36 @@ import img9 from './image/9.jpg'
 import img10 from './image/10.jpg'
 import img11 from './image/11.jpg'
 import './styleForHeader.css';
+import { withAuth0 } from '@auth0/auth0-react';
+import LogoutButton from './LogoutButton';
+import LoginButton from './LoginButton';
+import { Link } from "react-router-dom";
+// import Button from '@restart/ui/esm/Button';
 
 class Header extends Component {
+
     render() {
+        const { isAuthenticated } = this.props.auth0;
         return (
             <div>
                 <>
+                    {/* <Button */}
+                    
+                    {/* {isAuthenticated ? <LogoutButton /> : <LoginButton />} */}
                     <header>
+                    {/* {isAuthenticated ? <LogoutButton /> : <LoginButton />} */}
                         <img className="logoImg" src={logo} />
+                        {isAuthenticated ? <LogoutButton /> : <LoginButton />}
                         <div class="navigation">
                             <div class="navigation-items">
-                                <a href="#">Home</a>
-                                <a href="#">Profile</a>
-                                <a href="#">About Us</a>
+                                {/* <a href="#">Home</a> */}
+                                <Link to="/">Home</Link>
+                                {/* <a onClick={this.props.showprofileProps}>Profile</a> */}
+                                {/* <button onClick={this.props.showprofileProps}>Profile</button> */}
+                                <Link to="/profile">Profile</Link>
+                                {/* <a href="#">About Us</a> */}
+                                <Link to="/aboutUs">AboutUs</Link>
+
                                 {/* <Button variant="primary">Log In</Button> */}
                             </div>
                         </div>
@@ -136,11 +153,15 @@ class Header extends Component {
                             </Carousel.Caption>
                         </Carousel.Item>
                     </Carousel>
-                </>
 
+                </>
+                {/* <br/><br/>
+                <br/>
+                <br/> */}
+    {/* {isAuthenticated ? <LogoutButton /> : <LoginButton />} */}
             </div>
         )
     }
 }
 
-export default Header;
+export default withAuth0(Header);
