@@ -39,6 +39,24 @@ class Home extends Component {
         }
     }
     profile = () =>{this.setState({showProfile:true});}
+
+    addGame = (gameData) => {
+        console.log(gameData);
+        let gameInfo = {
+            gameName: gameData.name,
+            gameImageURL: gameData.image,
+            gameRating: gameData.rating,
+            userName: this.props.auth0.user.email
+          };
+        axios.post(`${process.env.REACT_APP_SERVER}/profile`, gameInfo).then((gamesData) => {
+            this.setState({
+              games: gamesData.data
+            });
+      
+          }
+          ).catch(err => console.log(`error in adding a book: ${err}`));
+    }
+    
     render() {
         return (
             <div>
@@ -63,7 +81,7 @@ class Home extends Component {
                 }
 
                 {this.state.game.map((item,index)=>{
-                    return <CardForSearch  key={index} game={item} />
+                    return <CardForSearch addGame={this.addGame} key={index} game={item} />
                 })}
 
                 
