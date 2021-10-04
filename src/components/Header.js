@@ -18,7 +18,6 @@ import { withAuth0 } from '@auth0/auth0-react';
 import LogoutButton from './LogoutButton';
 import LoginButton from './LoginButton';
 import { Link } from "react-router-dom";
-// import Button from '@restart/ui/esm/Button';
 
 class Header extends Component {
 
@@ -27,24 +26,14 @@ class Header extends Component {
         return (
             <div>
                 <>
-                    {/* <Button */}
-                    
-                    {/* {isAuthenticated ? <LogoutButton /> : <LoginButton />} */}
                     <header>
-                    {/* {isAuthenticated ? <LogoutButton /> : <LoginButton />} */}
                         <img className="logoImg" src={logo} />
                         {isAuthenticated ? <LogoutButton /> : <LoginButton />}
                         <div class="navigation">
                             <div class="navigation-items">
-                                {/* <a href="#">Home</a> */}
                                 <Link to="/">Home</Link>
-                                {/* <a onClick={this.props.showprofileProps}>Profile</a> */}
-                                {/* <button onClick={this.props.showprofileProps}>Profile</button> */}
                                 <Link to="/profile">Profile</Link>
-                                {/* <a href="#">About Us</a> */}
                                 <Link to="/aboutUs">AboutUs</Link>
-
-                                {/* <Button variant="primary">Log In</Button> */}
                             </div>
                         </div>
                     </header>
@@ -153,12 +142,7 @@ class Header extends Component {
                             </Carousel.Caption>
                         </Carousel.Item>
                     </Carousel>
-
                 </>
-                {/* <br/><br/>
-                <br/>
-                <br/> */}
-    {/* {isAuthenticated ? <LogoutButton /> : <LoginButton />} */}
             </div>
         )
     }
