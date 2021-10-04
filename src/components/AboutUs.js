@@ -9,7 +9,6 @@ import Footer from './Footer';
         render() {
             return (
                 <>
-                <Header/>
                 <div id="container">
                     
                     <div class="cards">
@@ -33,14 +32,13 @@ import Footer from './Footer';
                     <div class="cards">
                         <div class="content">
                             <h2>Emad Idris</h2>
-                            <p>Software engineer student at ASAC</p>
+                            <p>Computer Science Ain Shams University</p>
                             <a href="https://github.com/EmadIdris" target="_blank"><i style={{textAlign: "center"}} class="fab fa-github fa-2x"> Github</i></a>
                         </div>
                         <img src={`${Emad}`} alt="Ahmad AbuRumuh"/>
                     </div>
 
             </div >
-            <Footer/>
             </>
         );
         }
