@@ -27,8 +27,7 @@ class App extends Component {
       <div>
         
         
-        <Router>
-         
+        <Router>       
           <Header />
           <Switch>
             <Route exact path="/">
