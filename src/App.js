@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+import AboutUS from './components/AboutUs';
+
+
+
 import Home from './components/Home';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -10,6 +15,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -25,6 +31,9 @@ class App extends Component {
     const { isAuthenticated } = this.props.auth0;
     return (
       <div>
+
+      <AboutUS/>
+
         
         
         <Router>       
@@ -50,8 +59,9 @@ class App extends Component {
         {/* <Header /> */}
         {/* <Home /> */}
         {/* <Footer /> */}
+
       </div>
-    )
+    );
   }
 }
 

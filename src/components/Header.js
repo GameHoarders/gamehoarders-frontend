@@ -25,6 +25,7 @@ class Header extends Component {
         const { isAuthenticated } = this.props.auth0;
         return (
             <div>
+
                 <>
                     <header>
                         <img className="logoImg" src={logo} />
@@ -143,8 +144,9 @@ class Header extends Component {
                         </Carousel.Item>
                     </Carousel>
                 </>
+
             </div>
-        )
+        );
     }
 }
 
