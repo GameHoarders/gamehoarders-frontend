@@ -1,8 +1,7 @@
 
-
-
 #background{
     background-color: black;
+    margin-bottom: -20px;
 }
 #logoImg
 {
@@ -10,6 +9,7 @@
     height: 60px;
     position: relative;
     top: 20px;
+    margin-left: 100px;
 }
 .text{
     text-align: center;
