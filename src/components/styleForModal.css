@@ -1,0 +1,30 @@
+.gamePostar{
+    width: 650px;
+    /* height: 500px; */
+    border-radius: 10px;
+    box-shadow:5px 5px 10px rgb(211, 210, 208);
+}
+.rateGame{
+    margin-left:255px ;
+    margin-top: 5px;
+}
+.parentDiv{
+    display: flex;
+}
+.paragraphGame 
+{
+    margin-left: 10px;
+    /* margin-right: auto; */
+}
+.storyGame{
+margin-bottom: 5px;
+}
+/* .requirementGame */
+.cardGame
+{
+    margin-bottom: 20px;
+}
+.btnCard{
+    margin-top: 10px;
+}
+
