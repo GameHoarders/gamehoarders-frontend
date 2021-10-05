@@ -6,48 +6,59 @@ import CardGroup from 'react-bootstrap/CardGroup'
 import axios from 'axios';
 import Modal from 'react-bootstrap/Modal'
 class CardForSort extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state={
-            gameProfile:{},
-            showModal:false,
-            
+        this.state = {
+            gameProfile: {},
+            showModal: false,
+            commentData: {}
+
         }
     }
-    
 
-    getInfo=()=>{
-
-    let gameSlug = this.props.sort.slug;
-    let gameUrl = `${process.env.REACT_APP_SERVER}/home/game?gameName=${gameSlug}`
-    axios.get(gameUrl).then(axiosData =>{
-
-        this.setState({
-            gameProfile:axiosData.data,
-            showModal : true
+    getCommentHandler = () => {
+        let gameId = this.props.sort.id
+        let gameUrl = `${process.env.REACT_APP_SERVER}/gcomment?gameId=${gameId}`
+        axios.get(gameUrl).then(axiosData => {
+            this.setState({
+                commentData: axiosData.data
+            })
         })
-        if(axiosData.data.requirements.minimum){
-            this.setState({
-                requirements:axiosData.data.requirements.minimum
-            })
-        }else if (axiosData.data.requirements.recommended){
-            this.setState({
-                requirements:axiosData.data.requirements.recommended
-            })
-        }else {
-            this.setState({
-                requirements:'this game has no requirement'
-            })
-        }
-        console.log(this.state.gameProfile);
-        this.props.gHandler(axiosData.data)     
-    })
-    
     }
-    
-    closeModel = ()=>{
+
+
+    getInfo = () => {
+
+        let gameSlug = this.props.sort.slug;
+        let gameUrl = `${process.env.REACT_APP_SERVER}/home/game?gameName=${gameSlug}`
+        axios.get(gameUrl).then(axiosData => {
+
+            this.setState({
+                gameProfile: axiosData.data,
+                showModal: true
+            })
+            if (axiosData.data.requirements.minimum) {
+                this.setState({
+                    requirements: axiosData.data.requirements.minimum
+                })
+            } else if (axiosData.data.requirements.recommended) {
+                this.setState({
+                    requirements: axiosData.data.requirements.recommended
+                })
+            } else {
+                this.setState({
+                    requirements: 'this game has no requirement'
+                })
+            }
+            console.log(this.state.gameProfile);
+            this.props.gHandler(axiosData.data)
+        })
+
+    }
+
+    closeModel = () => {
         this.setState({
-            showModal:false
+            showModal: false
         })
     }
 
@@ -56,7 +67,7 @@ class CardForSort extends Component {
             <>
                 <CardGroup style={{ width: '13rem' }}>
                     <Card>
-                    <Card.Img  variant="top" src={this.props.sort.image} />
+                        <Card.Img variant="top" src={this.props.sort.image} />
                         <Card.Body>
                             <Card.Title>{this.props.sort.name}</Card.Title>
                             <Card.Text>
@@ -75,10 +86,11 @@ class CardForSort extends Component {
                         <Modal.Title>{this.props.sort.name}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <img src={this.props.sort.image}/>
+                        <img src={this.props.sort.image} />
                         <p>{this.props.sort.rating}</p>
                         <p>{this.state.gameProfile.description}</p>
                         <p>{this.state.gameProfile.requirements}</p>
+
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={this.closeModel}>
