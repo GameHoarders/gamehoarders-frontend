@@ -39,7 +39,7 @@ class Header extends Component {
                         </div>
                     </header>
                 </>
-                <>
+                {/* <>
                     <Carousel fade className="headerImg">
                         <Carousel.Item>
                             <img
@@ -143,7 +143,7 @@ class Header extends Component {
                             </Carousel.Caption>
                         </Carousel.Item>
                     </Carousel>
-                </>
+                </> */}
 
             </div>
         );

@@ -72,9 +72,9 @@ class CardForHome2 extends Component {
                     </Card>
                 </CardGroup>
 
-                <Modal show={this.state.showModal} fullscreen={true} onHide={this.closeModel}>
+                <Modal className="special_modal" show={this.state.showModal} fullscreen={true} onHide={this.closeModel}>
                     <Modal.Header closeButton>
-                        <Modal.Title>{this.props.home2.name}</Modal.Title>
+                        <Modal.Title className="Title" >{this.props.home2.name}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                     <div className="parentDiv">
@@ -99,10 +99,10 @@ class CardForHome2 extends Component {
                         </div>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={this.closeModel}>
+                        <Button className="btnModal" variant="secondary" onClick={this.closeModel}>
                             Close
                         </Button>
-                        <Button variant="secondary" onClick={() => {
+                        <Button className="btnModal" variant="secondary" onClick={() => {
                             this.props.addGame(this.props.home2)
                         }}>
                             Add To Wish List

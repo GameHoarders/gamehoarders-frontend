@@ -73,9 +73,9 @@ class CardForSort extends Component {
                         <Button className="btnCard" onClick={this.getInfo} >More Info</Button>
                     </Card>
                 </CardGroup>
-                <Modal show={this.state.showModal} fullscreen={true} onHide={this.closeModel}>
+                <Modal className="special_modal" show={this.state.showModal} fullscreen={true} onHide={this.closeModel}>
                     <Modal.Header closeButton>
-                        <Modal.Title>{this.props.sort.name}</Modal.Title>
+                        <Modal.Title className="Title" >{this.props.sort.name}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         {/* <img src={this.props.sort.image}/> */}
@@ -108,10 +108,10 @@ class CardForSort extends Component {
 
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={this.closeModel}>
+                        <Button className="btnModal" variant="secondary" onClick={this.closeModel}>
                             Close
                         </Button>
-                        <Button variant="secondary" onClick={() => {
+                        <Button className="btnModal" variant="secondary" onClick={() => {
                             this.props.addGame(this.props.sort)
                         }}>
                             Add To Wish List
