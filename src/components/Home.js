@@ -103,7 +103,7 @@ class Home extends Component {
 
     render() {
         return (
-            <div>
+            <div className="homePage">
                 <>
                     <Form onSubmit={this.search}>
                         <Form.Group className="mb-3">

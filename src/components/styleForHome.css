@@ -2,7 +2,8 @@ form
 {
     margin-left: 20%;
     margin-right: 20%;
-    margin-top: 20px;
+    /* margin-top: 80px; /
+    padding-top: 100px;
     margin-bottom: 20px;
 }
 .formSort{
@@ -20,4 +21,44 @@ form
     margin-right: auto;
     justify-content: space-between;
     margin-top: 10px;
+}
+.homePage
+{
+    / background-image: linear-gradient(to right, #0f0b0b , #000000) /
+    / background-image: radial-gradient(#243B55, #141E30); /
+    background-image: url('./image/bg3.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    / background-position: center; */
+    background-size: cover;
+
+}
+.form-label{
+    color: white;
+    font-size: 20px;
+
+}
+.form-control{
+    background-color: black;
+    color: whitesmoke;
+    border: solid 1px gold;
+    font-size: 20px;
+}
+.form-control:focus{
+    background-color: black;
+    color: whitesmoke;
+    border: solid 1px gold;
+    font-size: 20px;
+}
+.form-control::selection{
+    background-color: black;
+    color: whitesmoke;
+    border: solid 1px gold;
+    font-size: 20px;
+}
+.form-select{
+    background-color: black;
+    color: whitesmoke;
+    border: solid 1px gold;
+    font-size: 20px;
 }

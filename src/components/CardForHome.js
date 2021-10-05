@@ -91,27 +91,26 @@ class CardForHome extends Component {
                         </Card.Body>
                         <Button variant="primary" onClick={() => {
                             this.props.addGame(this.props.home)
-                        }} className="button sweepButton" ><span class="gradient"></span> Add To Wish List</Button>
-
+                        }}   > Add To Wish List</Button>
                         <Button className="btnCard" onClick={this.getInfo} >More Info</Button>
                     </Card>
                 </CardGroup>
                 {this.state.showModal &&
 
 
-                    <Modal show={this.state.showModal} fullscreen={true} onHide={this.closeModel}>
-                        <Modal.Header closeButton>
-                            <Modal.Title>{this.props.home.name}</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <div className="parentDiv">
-                                <div>
-                                    <img className="gamePostar" src={this.props.home.image} />
-                                    {/* <p>{this.props.home.rating}</p> */}
-                                    <div className="rateGame">
-                                        {/* <Typography component="legend">Rate</Typography> */}
-                                        <Rating name="read-only" value={this.props.home.rating} precision={0.5} size="large" readOnly />
-                                    </div>
+                <Modal className="special_modal"  show={this.state.showModal} fullscreen={true} onHide={this.closeModel}>
+                    <Modal.Header closeButton>
+                        <Modal.Title className="Title">{this.props.home.name}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <div className="parentDiv">
+                            <div>
+                                <img className="gamePostar" src={this.props.home.image} />
+                                {/* <p>{this.props.home.rating}</p> */}
+                                <div className="rateGame">
+                                    {/* <Typography component="legend">Rate</Typography> */}
+                                    <Rating name="read-only" value={this.props.home.rating} precision={0.5} size="large" readOnly />
+                                </div>
                                 </div>
                                 <div className="paragraphGame">
                                     <div className="storyGame">
@@ -129,19 +128,23 @@ class CardForHome extends Component {
                                     </div>
                                 </div>
                             </div>
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="secondary" onClick={this.closeModel}>
-                                Close
-                            </Button>
-                            <Button variant="secondary" onClick={() => {
-                                this.props.addGame(this.props.home)
-                            }}>
-                                Add To Wish List
-                            </Button>
-                        </Modal.Footer>
-                    </Modal>
+
+                        </div>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button className="btnModal" variant="secondary" onClick={this.closeModel}>
+                            Close
+                        </Button>
+                        <Button className="btnModal" variant="secondary" onClick={() => {
+                            this.props.addGame(this.props.home)
+                        }}>
+                            Add To Wish List
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+  
                 }
+
             </>
         );
     }

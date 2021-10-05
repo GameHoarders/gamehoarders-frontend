@@ -1,6 +1,8 @@
 
 #background{
-    background-color: black;
+    /* background-color: #080808f1; */
+    /* background-color: hsla(#000, #000, #000, 0); */
+    background-color: rgba(0, 0, 0, 0.98);
     margin-bottom: -20px;
 }
 #logoImg
