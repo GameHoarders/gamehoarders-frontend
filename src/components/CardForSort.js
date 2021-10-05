@@ -16,7 +16,19 @@ class CardForSort extends Component {
             requirements: ''
         }
     }
+    getCommentHandler = () => {
+        let gameId = this.state.gameProfile.id
+        let gameUrl = `${process.env.REACT_APP_SERVER}/gcomment?gameId=${gameId}`
+        axios.get(gameUrl).then(axiosData => {
+            console.log(axiosData.data);
+            this.setState({
+                commentData: axiosData.data,
+                showModal: true
+            })
+            console.log(this.state.commentData[0].body);
 
+        })
+    }
 
     getInfo = () => {
 
