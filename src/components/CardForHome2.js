@@ -3,6 +3,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Card, Button } from 'react-bootstrap';
 import CardGroup from 'react-bootstrap/CardGroup'
 // import { Link } from "react-router-dom";
+import { withAuth0 } from '@auth0/auth0-react';
+import Form from 'react-bootstrap/Form'
+
+
 import axios from 'axios';
 import { Rating, Typography } from '@mui/material';
 import './styleForModal.css';
@@ -18,17 +22,39 @@ class CardForHome2 extends Component {
 
         }
     }
+    // getCommentHandler = () => {
+    //     let gameId = this.state.gameProfile.id
+    //     let gameUrl = `${process.env.REACT_APP_SERVER}/gcomment?gameId=${gameId}`
+    //     axios.get(gameUrl).then(axiosData => {
+    //         console.log(axiosData.data);
+    //         this.setState({
+    //             commentData: axiosData.data,
+    //             showModal: true
+    //         })
+    //         console.log(this.state.commentData[0].body);
+
+    //     })
+    // }
     getCommentHandler = () => {
         let gameId = this.state.gameProfile.id
         let gameUrl = `${process.env.REACT_APP_SERVER}/gcomment?gameId=${gameId}`
         axios.get(gameUrl).then(axiosData => {
             console.log(axiosData.data);
-            this.setState({
-                commentData: axiosData.data,
-                showModal: true
-            })
-            console.log(this.state.commentData[0].body);
+            if (axiosData.data.length === 0) {
 
+                this.setState({
+                    commentData: [{ user: 'No Comments', body: 'No Comments' }],
+                    showModal: true,
+                })
+            } else {
+
+                this.setState({
+                    commentData: axiosData.data,
+                    showModal: true,
+                    showCom:true
+                })
+            }
+            console.log(this.state.commentData[0].body);
         })
     }
     getInfo = async () => {
@@ -68,7 +94,39 @@ class CardForHome2 extends Component {
             showModal: false
         })
     }
+    commentHandler =(event)=>{
+        event.preventDefault();
+        const { user} = this.props.auth0;
+        let comment = event.target.comment.value;
+        let parameter = {
+            gameId:this.state.gameProfile.id,
+            body:comment ,
+            user:user.name,
+            email:user.email
+        }
+        
+        let commentURL = `${process.env.REACT_APP_SERVER}/gcomment`
+        axios.post(commentURL,parameter).then(Data=>{
+            this.setState({
+                commentData:Data.data,
+                showCom:false
+            })
+            this.getCommentHandler();
+        })
+    }
+    deleteCommentHandler = (CId,ID) =>{
+
+        let url=`${process.env.REACT_APP_SERVER}/gcomment?gameId=${ID}&commentId=${CId}`
+        axios.delete(url).then(Data=>{
+            this.setState({
+                commentData:Data.data,
+                showCom:false
+            })
+            this.getCommentHandler();
+        })
+    }
     render() {
+        const {  user,isAuthenticated } = this.props.auth0;
         return (
             <>
                 <CardGroup className="cardGame" style={{ width: '20rem' }}>
@@ -87,7 +145,7 @@ class CardForHome2 extends Component {
                         <Button className="btnCard" onClick={this.getInfo} >More Info</Button>
                     </Card>
                 </CardGroup>
-
+                {this.state.showModal &&
                 <Modal className="special_modal" show={this.state.showModal} fullscreen={true} onHide={this.closeModel}>
                     <Modal.Header closeButton>
                         <Modal.Title className="Title" >{this.props.home2.name}</Modal.Title>
@@ -112,12 +170,35 @@ class CardForHome2 extends Component {
                                     <p>{this.state.requirements}</p>
                                 </div>
                                 <div className="CommentGame">
-                                    <h2>Comments</h2>
-                                    <h4>commenter : {this.state.commentData[0].user}</h4>
-                                    <p>{this.state.commentData[0].body}</p>
-                                </div>
+                                        <h2>Comments</h2>
+                                        {this.state.showCom && 
+                                        this.state.commentData.map((item, index) => {
+                                            return (<> <h4 key={index}>Name: {item.user}</h4>
+                                        <p>{item.body}</p>
+                                        {isAuthenticated && user.name === item.user && 
+                                                    <Button className="btnCard X" style={{width:'15%'}} onClick={()=>this.deleteCommentHandler(item._id ,this.state.gameProfile.id  )} >DELETE</Button>
+                                                    }
+                                        </>
+                                            )
+                                        })
+                                        }
+                                    </div>
                             </div>
-                        </div>
+                            </div>
+                            {isAuthenticated &&
+                                    <div>
+                                        <Form onSubmit={this.commentHandler}>
+                                            <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                                                <Form.Label>Write a comment</Form.Label>
+                                                <Form.Control name="comment"  as="textarea" rows={3} />
+                                            </Form.Group>
+                                            <Button variant="primary" type="submit">
+                                                Post
+                                            </Button>
+                                        </Form>
+                                    </div>
+                                }
+                        
                     </Modal.Body>
                     <Modal.Footer>
                         <Button className="btnModal" variant="secondary" onClick={this.closeModel}>
@@ -130,9 +211,10 @@ class CardForHome2 extends Component {
                         </Button>
                     </Modal.Footer>
                 </Modal>
+                    }
             </>
         );
     }
 }
 
-export default CardForHome2;
+export default withAuth0(CardForHome2);
