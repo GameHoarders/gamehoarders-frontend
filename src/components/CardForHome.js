@@ -3,18 +3,21 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Card, Button } from 'react-bootstrap';
 import CardGroup from 'react-bootstrap/CardGroup'
 // import { Link } from "react-router-dom";
+import { Rating, Typography } from '@mui/material';
+// import Rating from '@mui/material/Rating';
 import axios from 'axios';
 import Modal from 'react-bootstrap/Modal'
+import './styleForModal.css';
 class CardForHome extends Component {
     constructor(props) {
         super(props);
         this.state = {
             gameProfile: {},
             showModal: false,
+            requirements: '',
             commentData: []
         }
     }
-
     getCommentHandler = () => {
         let gameId = this.state.gameProfile.id
         let gameUrl = `${process.env.REACT_APP_SERVER}/gcomment?gameId=${gameId}`
@@ -32,18 +35,30 @@ class CardForHome extends Component {
 
         let gameSlug = this.props.home.slug;
         let gameUrl = `${process.env.REACT_APP_SERVER}/home/game?gameName=${gameSlug}`
-        axios.get(gameUrl).then(async axiosData => {
+        axios.get(gameUrl).then( async axiosData => {
             this.setState({
-                gameProfile: axiosData.data
-            })
-            // await this.props.gHandler(axiosData.data)  
-            await this.getCommentHandler();
-            console.log(this.state.gameProfile);
-            this.setState({
+                gameProfile: axiosData.data,
                 showModal: true
             })
-
-            console.log(this.state.commentData);
+            // await this.getCommentHandler();
+            if (axiosData.data.requirements.minimum) {
+                this.setState({
+                    requirements: axiosData.data.requirements.minimum
+                })
+            } else if (axiosData.data.requirements.recommended) {
+                this.setState({
+                    requirements: axiosData.data.requirements.recommended
+                })
+            } else {
+                this.setState({
+                    requirements: 'this game has no requirement'
+                })
+            }
+            // this.setState({
+            //     showModal: true
+            // })
+            console.log(this.state.gameProfile);
+            this.props.gHandler(axiosData.data)
         })
 
     }
@@ -57,57 +72,66 @@ class CardForHome extends Component {
     render() {
         return (
             <>
-                <CardGroup style={{ width: '13rem' }}>
-                    <Card>
-                        <Card.Img onClick={this.getInfo} variant="top" src={this.props.home.image} />
+
+                <CardGroup className="cardGame" style={{ width: '20rem' }}>
+                    <Card >
+                        <Card.Img style={{ height: '15rem' }} onClick={this.getInfo} variant="top" src={this.props.home.image} />
                         <Card.Body>
                             <Card.Title>{this.props.home.name}</Card.Title>
                             <Card.Text>
-                                {this.props.home.rating}
+                                {/* {this.props.home.rating} */}
+                                <Rating name="read-only" value={this.props.home.rating} precision={0.5} readOnly />
                             </Card.Text>
                         </Card.Body>
                         <Button variant="primary" onClick={() => {
                             this.props.addGame(this.props.home)
-                        }}>Add To Wish List</Button>
-                        <Button onClick={this.getInfo} >More Info</Button>
+                        }} className="button sweepButton" ><span class="gradient"></span> Add To Wish List</Button>
+
+                        <Button className="btnCard" onClick={this.getInfo} >More Info</Button>
                     </Card>
                 </CardGroup>
-                {this.state.showModal &&
-                    <Modal show={this.state.showModal} fullscreen={true} onHide={this.closeModel}>
-                        <Modal.Header closeButton>
-                            <Modal.Title>{this.props.home.name}</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <img src={this.props.home.image} />
-                            <p>{this.props.home.rating}</p>
-                            <p>{this.state.gameProfile.description}</p>
-                            <p>{this.state.requirements}</p>
-                            <p>{this.state.commentData[0].body}</p>
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="secondary" onClick={this.closeModel}>
-                                Close
-                            </Button>
-                        </Modal.Footer>
-                    </Modal>
-                }
-                {/* <Modal show={this.state.showModal} fullscreen={true} onHide={this.closeModel}>
+
+                <Modal show={this.state.showModal} fullscreen={true} onHide={this.closeModel}>
                     <Modal.Header closeButton>
                         <Modal.Title>{this.props.home.name}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <img src={this.props.home.image} />
-                        <p>{this.props.home.rating}</p>
-                        <p>{this.state.gameProfile.description}</p>
-                        <p>{this.state.requirements}</p>
-                        <p>{this.state.commentData[0].body}</p>
+                        <div className="parentDiv">
+                            <div>
+                                <img className="gamePostar" src={this.props.home.image} />
+                                {/* <p>{this.props.home.rating}</p> */}
+                                <div className="rateGame">
+                                    {/* <Typography component="legend">Rate</Typography> */}
+                                    <Rating name="read-only" value={this.props.home.rating} precision={0.5} size="large" readOnly />
+                                </div>
+                            </div>
+                            <div className="paragraphGame">
+                                <div className="storyGame">
+                                    <h2>Story</h2>
+                                    <p >{this.state.gameProfile.description}</p>
+                                </div>
+                                <div className="requirementGame">
+                                    <h2>Requirement</h2>
+                                    <p>{this.state.requirements}</p>
+                                </div>
+                                <div className="CommentGame">
+                                    <h2>Comments</h2>
+                                    <p>{this.state.commentData[0].body}</p>
+                                </div>
+                            </div>
+                        </div>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={this.closeModel}>
                             Close
                         </Button>
+                        <Button variant="secondary" onClick={() => {
+                            this.props.addGame(this.props.home)
+                        }}>
+                            Add To Wish List
+                        </Button>
                     </Modal.Footer>
-                </Modal> */}
+                </Modal>
             </>
         );
     }

@@ -133,34 +133,36 @@ class Home extends Component {
                             <option value="xbox">XBOX Games</option>
                         </Form.Select>
                     </div>
-                    <div className="qwe">
+
+                    <div className="cardstyle">
                         {this.state.game.map((item, index) => {
-                            return (
-
-
-                                <CardForSearch addGame={this.addGame} key={index} game={item} gHandler={this.props.gHandler} />
-
-                            )
-
+                            return <CardForSearch addGame={this.addGame} key={index} game={item} gHandler={this.props.gHandler} />
                         })}
                     </div>
 
+                    <div className="cardstyle">
                     {this.state.game.map((item, index) => {
                         return <CardForSort addGame={this.addGame} key={index} sort={item} gHandler={this.props.gHandler} />
                     })}
+                </div>
 
+                <div className="cardstyle">
                     {this.state.gameTR.map((item, index) => {
                         return <CardForHome addGame={this.addGame} key={index} home={item} gHandler={this.props.gHandler} />
                     })}
-
-                    {this.state.gameNG.map((item, index) => {
-                        return <CardForHome2 addGame={this.addGame} key={index} home2={item} gHandler={this.props.gHandler} />
-                    })}
-                </>
+                </div>
+                <div className="cardstyle">
+                {this.state.gameNG.map((item, index) => {
+                    return <CardForHome2 addGame={this.addGame} key={index} home2={item} gHandler={this.props.gHandler} />
+                })}
             </div>
+
+
+
+                </>
+            </div >
         )
     }
 }
 
 export default withAuth0(Home);
-
