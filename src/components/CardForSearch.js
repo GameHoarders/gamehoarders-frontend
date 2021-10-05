@@ -14,22 +14,34 @@ class CardForSearch extends Component {
         this.state = {
             gameProfile: {},
             showModal: false,
-            requirements: ''
+            requirements: '',
+            commentData: []
+
         }
     }
-    getInfo = () => {
+    getCommentHandler = () => {
+        let gameId = this.state.gameProfile.id
+        let gameUrl = `${process.env.REACT_APP_SERVER}/gcomment?gameId=${gameId}`
+        axios.get(gameUrl).then(axiosData => {
+            console.log(axiosData.data);
+            this.setState({
+                commentData: axiosData.data,
+                showModal: true
+            })
+            console.log(this.state.commentData[0].body);
+
+        })
+    }
+    getInfo = async () => {
 
         let gameSlug = this.props.game.slug;
         let gameUrl = `${process.env.REACT_APP_SERVER}/home/game?gameName=${gameSlug}`
-        axios.get(gameUrl).then(axiosData => {
-            console.log(gameUrl);
-            console.log(axiosData.data);
-            this.setState({
+        await axios.get(gameUrl).then(async axiosData => {
+            await this.setState({
                 gameProfile: axiosData.data,
-                showModal: true
-            })
 
-            console.log(axiosData.data.requirements.minimum);
+            })
+            // await this.getCommentHandler();
             if (axiosData.data.requirements.minimum) {
                 this.setState({
                     requirements: axiosData.data.requirements.minimum
@@ -43,10 +55,13 @@ class CardForSearch extends Component {
                     requirements: 'this game has no requirement'
                 })
             }
+            // this.setState({
+            //     showModal: true
+            // })
             console.log(this.state.gameProfile);
             this.props.gHandler(axiosData.data)
+            this.getCommentHandler();
         })
-
     }
 
     closeModel = () => {
@@ -105,6 +120,11 @@ class CardForSearch extends Component {
                                 <div className="requirementGame">
                                     <h2>Requirement</h2>
                                     <p>{this.state.requirements}</p>
+                                </div>
+                                <div className="CommentGame">
+                                    <h2>Comments</h2>
+                                    <h4>commenter : {this.state.commentData[0].user}</h4>
+                                    <p>{this.state.commentData[0].body}</p>
                                 </div>
                             </div>
                         </div>

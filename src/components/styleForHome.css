@@ -2,7 +2,7 @@ form
 {
     margin-left: 20%;
     margin-right: 20%;
-    /* margin-top: 80px; */
+    /* margin-top: 80px; /
     padding-top: 100px;
     margin-bottom: 20px;
 }
@@ -24,19 +24,19 @@ form
 }
 .homePage
 {
-    /* background-image: linear-gradient(to right, #0f0b0b , #000000) */
-    /* background-image: radial-gradient(#243B55, #141E30); */
+    / background-image: linear-gradient(to right, #0f0b0b , #000000) /
+    / background-image: radial-gradient(#243B55, #141E30); /
     background-image: url('./image/bg3.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
-    /* background-position: center; */
+    / background-position: center; */
     background-size: cover;
 
 }
 .form-label{
     color: white;
     font-size: 20px;
-    
+
 }
 .form-control{
     background-color: black;

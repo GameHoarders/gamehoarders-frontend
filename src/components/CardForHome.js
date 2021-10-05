@@ -14,20 +14,34 @@ class CardForHome extends Component {
         this.state = {
             gameProfile: {},
             showModal: false,
-            requirements: ''
+            requirements: '',
+            commentData: []
         }
     }
+    getCommentHandler = () => {
+        let gameId = this.state.gameProfile.id
+        let gameUrl = `${process.env.REACT_APP_SERVER}/gcomment?gameId=${gameId}`
+        axios.get(gameUrl).then(axiosData => {
+            console.log(axiosData.data);
+            this.setState({
+                commentData: axiosData.data,
+                showModal: true
+            })
+            console.log(this.state.commentData[0].body);
 
+        })
+    }
 
-    getInfo = () => {
+    getInfo = async () => {
 
         let gameSlug = this.props.home.slug;
         let gameUrl = `${process.env.REACT_APP_SERVER}/home/game?gameName=${gameSlug}`
-        axios.get(gameUrl).then(axiosData => {
-            this.setState({
+        await axios.get(gameUrl).then(async axiosData => {
+            await this.setState({
                 gameProfile: axiosData.data,
-                showModal: true
+
             })
+            // await this.getCommentHandler();
             if (axiosData.data.requirements.minimum) {
                 this.setState({
                     requirements: axiosData.data.requirements.minimum
@@ -41,9 +55,17 @@ class CardForHome extends Component {
                     requirements: 'this game has no requirement'
                 })
             }
+            // this.setState({
+            //     showModal: true
+            // })
             console.log(this.state.gameProfile);
             this.props.gHandler(axiosData.data)
+            this.getCommentHandler();
         })
+
+        // this.setState({
+        //     showModal: true
+        // })
 
     }
 
@@ -73,6 +95,8 @@ class CardForHome extends Component {
                         <Button className="btnCard" onClick={this.getInfo} >More Info</Button>
                     </Card>
                 </CardGroup>
+                {this.state.showModal &&
+
 
                 <Modal className="special_modal"  show={this.state.showModal} fullscreen={true} onHide={this.closeModel}>
                     <Modal.Header closeButton>
@@ -87,17 +111,24 @@ class CardForHome extends Component {
                                     {/* <Typography component="legend">Rate</Typography> */}
                                     <Rating name="read-only" value={this.props.home.rating} precision={0.5} size="large" readOnly />
                                 </div>
-                            </div>
-                            <div className="paragraphGame">
-                                <div className="storyGame">
-                                    <h2>Story</h2>
-                                    <p >{this.state.gameProfile.description}</p>
                                 </div>
-                                <div className="requirementGame">
-                                    <h2>Requirement</h2>
-                                    <p>{this.state.requirements}</p>
+                                <div className="paragraphGame">
+                                    <div className="storyGame">
+                                        <h2>Story</h2>
+                                        <p >{this.state.gameProfile.description}</p>
+                                    </div>
+                                    <div className="requirementGame">
+                                        <h2>Requirement</h2>
+                                        <p>{this.state.requirements}</p>
+                                    </div>
+                                    <div className="CommentGame">
+                                        <h2>Comments</h2>
+                                        <h4>commenter : {this.state.commentData[0].user}</h4>
+                                        <p>{this.state.commentData[0].body}</p>
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
                     </Modal.Body>
                     <Modal.Footer>
@@ -111,6 +142,9 @@ class CardForHome extends Component {
                         </Button>
                     </Modal.Footer>
                 </Modal>
+  
+                }
+
             </>
         );
     }
