@@ -13,7 +13,9 @@ class CardForSort extends Component {
         this.state = {
             gameProfile: {},
             showModal: false,
-            requirements: ''
+            requirements: '',
+            commentData: []
+
         }
     }
     getCommentHandler = () => {
@@ -29,17 +31,16 @@ class CardForSort extends Component {
 
         })
     }
-
-    getInfo = () => {
+    getInfo = async () => {
 
         let gameSlug = this.props.sort.slug;
         let gameUrl = `${process.env.REACT_APP_SERVER}/home/game?gameName=${gameSlug}`
-        axios.get(gameUrl).then(axiosData => {
-
-            this.setState({
+        await axios.get(gameUrl).then(async axiosData => {
+            await this.setState({
                 gameProfile: axiosData.data,
-                showModal: true
+
             })
+            // await this.getCommentHandler();
             if (axiosData.data.requirements.minimum) {
                 this.setState({
                     requirements: axiosData.data.requirements.minimum
@@ -53,10 +54,13 @@ class CardForSort extends Component {
                     requirements: 'this game has no requirement'
                 })
             }
+            // this.setState({
+            //     showModal: true
+            // })
             console.log(this.state.gameProfile);
             this.props.gHandler(axiosData.data)
+            this.getCommentHandler();
         })
-
     }
 
     closeModel = () => {
@@ -114,6 +118,11 @@ class CardForSort extends Component {
                                 <div className="requirementGame">
                                     <h2>Requirement</h2>
                                     <p>{this.state.requirements}</p>
+                                </div>
+                                <div className="CommentGame">
+                                    <h2>Comments</h2>
+                                    <h4>commenter : {this.state.commentData[0].user}</h4>
+                                    <p>{this.state.commentData[0].body}</p>
                                 </div>
                             </div>
                         </div>
