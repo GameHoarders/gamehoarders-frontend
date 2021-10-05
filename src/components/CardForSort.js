@@ -4,6 +4,10 @@ import { Card, Button } from 'react-bootstrap';
 import CardGroup from 'react-bootstrap/CardGroup'
 // import { Link } from "react-router-dom";
 import axios from 'axios';
+import { withAuth0 } from '@auth0/auth0-react';
+import Form from 'react-bootstrap/Form'
+
+
 import { Rating, Typography } from '@mui/material';
 import Modal from 'react-bootstrap/Modal'
 import './styleForModal.css';
@@ -18,17 +22,39 @@ class CardForSort extends Component {
 
         }
     }
+    // getCommentHandler = () => {
+    //     let gameId = this.state.gameProfile.id
+    //     let gameUrl = `${process.env.REACT_APP_SERVER}/gcomment?gameId=${gameId}`
+    //     axios.get(gameUrl).then(axiosData => {
+    //         console.log(axiosData.data);
+    //         this.setState({
+    //             commentData: axiosData.data,
+    //             showModal: true
+    //         })
+    //         console.log(this.state.commentData[0].body);
+
+    //     })
+    // }
     getCommentHandler = () => {
         let gameId = this.state.gameProfile.id
         let gameUrl = `${process.env.REACT_APP_SERVER}/gcomment?gameId=${gameId}`
         axios.get(gameUrl).then(axiosData => {
             console.log(axiosData.data);
-            this.setState({
-                commentData: axiosData.data,
-                showModal: true
-            })
-            console.log(this.state.commentData[0].body);
+            if (axiosData.data.length === 0) {
 
+                this.setState({
+                    commentData: [{ user: 'No Comments', body: 'No Comments' }],
+                    showModal: true,
+                })
+            } else {
+
+                this.setState({
+                    commentData: axiosData.data,
+                    showModal: true,
+                    showCom: true
+                })
+            }
+            console.log(this.state.commentData[0].body);
         })
     }
     getInfo = async () => {
@@ -68,8 +94,54 @@ class CardForSort extends Component {
             showModal: false
         })
     }
+    commentHandler = (event) => {
+        event.preventDefault();
+        const { user } = this.props.auth0;
+        let comment = event.target.comment.value;
+        let parameter = {
+            gameId: this.state.gameProfile.id,
+            body: comment,
+            user: user.name,
+            email: user.email
+        }
+
+        let commentURL = `${process.env.REACT_APP_SERVER}/gcomment`
+        axios.post(commentURL, parameter).then(Data => {
+            this.setState({
+                commentData: Data.data,
+                showCom: false
+            })
+            this.getCommentHandler();
+        })
+    }
+    deleteCommentHandler = (CId,ID) =>{
+        let url=`${process.env.REACT_APP_SERVER}/gcomment?gameId=${ID}&commentId=${CId}`
+        axios.delete(url).then(Data=>{
+            this.setState({
+                commentData:Data.data,
+                showCom:false
+            })
+            this.getCommentHandler();
+        })
+    }
+
+    UpdateCommentHandler =(CId , Body , ID)=>{
+        // commentId, body, gameId
+        let Info ={
+            commentId:CId,body:Body,gameId:ID
+        }
+
+    axios.put(`${process.env.REACT_APP_SERVER}/gcomment`, Info).then(Data=>{
+        this.setState({
+            commentData:Data.data,
+            showCom:false 
+        })
+        this.getCommentHandler();
+    })
+    }
 
     render() {
+        const { user,isAuthenticated } = this.props.auth0;
         return (
             <>
                 <CardGroup className="cardGame" style={{ width: '20rem' }}>
@@ -89,59 +161,89 @@ class CardForSort extends Component {
                         <Button className="btnCard" onClick={this.getInfo} >More Info</Button>
                     </Card>
                 </CardGroup>
-                <Modal className="special_modal" show={this.state.showModal} fullscreen={true} onHide={this.closeModel}>
-                    <Modal.Header closeButton>
-                        <Modal.Title className="Title" >{this.props.sort.name}</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        {/* <img src={this.props.sort.image}/> */}
-                        {/* <p>{this.props.sort.rating}</p> */}
-                        {/* <Typography component="legend">Rate</Typography> */}
-                        {/* <Rating name="read-only" value={this.props.sort.rating} readOnly /> */}
-                        {/* <p>{this.state.gameProfile.description}</p>
+                {this.state.showModal &&
+                    <Modal className="special_modal" show={this.state.showModal} fullscreen={true} onHide={this.closeModel}>
+                        <Modal.Header closeButton>
+                            <Modal.Title className="Title" >{this.props.sort.name}</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            {/* <img src={this.props.sort.image}/> */}
+                            {/* <p>{this.props.sort.rating}</p> */}
+                            {/* <Typography component="legend">Rate</Typography> */}
+                            {/* <Rating name="read-only" value={this.props.sort.rating} readOnly /> */}
+                            {/* <p>{this.state.gameProfile.description}</p>
                         <p>{this.state.requirements}</p> */}
 
-                        <div className="parentDiv">
-                            <div>
-                                <img className="gamePostar" src={this.props.sort.image} />
-                                {/* <p>{this.props.home.rating}</p> */}
-                                <div className="rateGame">
-                                    {/* <Typography component="legend">Rate</Typography> */}
-                                    <Rating name="read-only" value={this.props.sort.rating} precision={0.5} size="large" readOnly />
-                                </div>
-                            </div>
-                            <div className="paragraphGame">
-                                <div className="storyGame">
-                                    <h2>Story</h2>
-                                    <p >{this.state.gameProfile.description}</p>
-                                </div>
-                                <div className="requirementGame">
-                                    <h2>Requirement</h2>
-                                    <p>{this.state.requirements}</p>
-                                </div>
-                                <div className="CommentGame">
-                                    <h2>Comments</h2>
-                                    <h4>commenter : {this.state.commentData[0].user}</h4>
-                                    <p>{this.state.commentData[0].body}</p>
-                                </div>
-                            </div>
-                        </div>
+                            <div className="parentDiv">
+                                <div>
+                                    <img className="gamePostar" src={this.props.sort.image} />
+                                    {/* <p>{this.props.home.rating}</p> */}
+                                    <div className="rateGame">
+                                        {/* <Typography component="legend">Rate</Typography> */}
+                                        <Rating name="read-only" value={this.props.sort.rating} precision={0.5} size="large" readOnly />
+                                    </div>
 
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button className="btnModal" variant="secondary" onClick={this.closeModel}>
-                            Close
-                        </Button>
-                        <Button className="btnModal" variant="secondary" onClick={() => {
-                            this.props.addGame(this.props.sort)
-                        }}>
-                            Add To Wish List
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
+
+
+                                </div>
+                                <div className="paragraphGame">
+                                    <div className="storyGame">
+                                        <h2>Story</h2>
+                                        <p >{this.state.gameProfile.description}</p>
+                                    </div>
+                                    <div className="requirementGame">
+                                        <h2>Requirement</h2>
+                                        <p>{this.state.requirements}</p>
+                                    </div>
+                                    <div className="CommentGame">
+                                        <h2>Comments</h2>
+                                        {this.state.showCom &&
+                                            this.state.commentData.map((item, index) => {
+                                                return (<> <h4 key={index}>Name: {item.user}</h4>
+                                                    <p>{item.body}</p>
+                                                    {isAuthenticated && user.name === item.user && 
+                                                    <>
+                                                    <Button className="btnCard X" style={{width:'15%'}} onClick={()=>this.deleteCommentHandler(item._id ,this.state.gameProfile.id  )} >DELETE</Button>
+                                                    <Button className="btnCard X" style={{width:'15%'}} onClick={()=>this.UpdateCommentHandler(item._id, item.body ,this.state.gameProfile.id  )}>UPDATE</Button>
+                                                    </>
+                                                    }
+                                                    </>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                </div>
+
+                            </div>
+                            {isAuthenticated &&
+                                    <div>
+                                        <Form onSubmit={this.commentHandler}>
+                                            <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                                                <Form.Label>Write a comment</Form.Label>
+                                                <Form.Control name="comment"  as="textarea" rows={3} />
+                                            </Form.Group>
+                                            <Button variant="primary" type="submit">
+                                                Post
+                                            </Button>
+                                        </Form>
+                                    </div>
+                                }
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button className="btnModal" variant="secondary" onClick={this.closeModel}>
+                                Close
+                            </Button>
+                            <Button className="btnModal" variant="secondary" onClick={() => {
+                                this.props.addGame(this.props.sort)
+                            }}>
+                                Add To Wish List
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
+                }
             </>
         );
     }
 }
 
-export default CardForSort;
+export default withAuth0(CardForSort);
