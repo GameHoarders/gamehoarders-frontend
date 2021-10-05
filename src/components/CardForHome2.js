@@ -4,7 +4,8 @@ import { Card, Button } from 'react-bootstrap';
 import CardGroup from 'react-bootstrap/CardGroup'
 // import { Link } from "react-router-dom";
 import axios from 'axios';
-
+import { Rating , Typography } from '@mui/material';
+import './styleForModal.css';
 import Modal from 'react-bootstrap/Modal'
 class CardForHome2 extends Component {
     constructor(props){
@@ -12,6 +13,7 @@ class CardForHome2 extends Component {
         this.state={
             gameProfile:{},
             showModal:false,
+            requirements:''
             
         }
     }
@@ -26,6 +28,19 @@ class CardForHome2 extends Component {
             gameProfile:axiosData.data,
             showModal : true
         })
+        if(axiosData.data.requirements.minimum){
+            this.setState({
+                requirements:axiosData.data.requirements.minimum
+            })
+        }else if (axiosData.data.requirements.recommended){
+            this.setState({
+                requirements:axiosData.data.requirements.recommended
+            })
+        }else {
+            this.setState({
+                requirements:'this game has no requirement'
+            })
+        }
         console.log(this.state.gameProfile);
         this.props.gHandler(axiosData.data)     
     })
@@ -40,19 +55,20 @@ class CardForHome2 extends Component {
     render() {
         return (
             <>
-                <CardGroup  style={{ width: '13rem' }}>
+                <CardGroup className="cardGame"  style={{ width: '20rem' }}>
                     <Card>
-                    <Card.Img  variant="top" src={this.props.home2.image} />
+                    <Card.Img style={{ height: '15rem'  }} variant="top" src={this.props.home2.image} />
                         <Card.Body>
                             <Card.Title>{this.props.home2.name}</Card.Title>
                             <Card.Text>
-                                {this.props.home2.rating}
+                                {/* {this.props.home2.rating} */}
+                                <Rating name="read-only" value={this.props.home2.rating}  precision={0.5}  readOnly />
                             </Card.Text>
-                        </Card.Body>>
+                        </Card.Body>
                         <Button variant="primary" onClick={() => {
                             this.props.addGame(this.props.home2)
                         }}>Add To Wish List</Button>
-                        <Button onClick={this.getInfo} >More Info</Button>
+                        <Button className="btnCard" onClick={this.getInfo} >More Info</Button>
                     </Card>
                 </CardGroup>
 
@@ -61,14 +77,35 @@ class CardForHome2 extends Component {
                         <Modal.Title>{this.props.home2.name}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <img src={this.props.home2.image}/>
-                        <p>{this.props.home2.rating}</p>
-                        <p>{this.state.gameProfile.description}</p>
-                        <p>{this.state.gameProfile.requirements}</p>
+                    <div className="parentDiv">
+                        <div>
+                        <img className="gamePostar" src={this.props.home2.image} />
+                        {/* <p>{this.props.home.rating}</p> */}
+                        <div className="rateGame">
+                        {/* <Typography component="legend">Rate</Typography> */}
+                        <Rating name="read-only" value={this.props.home2.rating}  precision={0.5} size="large" readOnly />
+                        </div>
+                        </div>
+                        <div className="paragraphGame">
+                           <div className="storyGame"> 
+                        <h2>Story</h2>
+                        <p >{this.state.gameProfile.description}</p>
+                        </div>
+                        <div className="requirementGame"> 
+                        <h2>Requirement</h2>
+                        <p>{this.state.requirements}</p>
+                        </div>
+                        </div>
+                        </div>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={this.closeModel}>
                             Close
+                        </Button>
+                        <Button variant="secondary" onClick={() => {
+                            this.props.addGame(this.props.home2)
+                        }}>
+                            Add To Wish List
                         </Button>
                     </Modal.Footer>
                 </Modal>

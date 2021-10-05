@@ -80,20 +80,22 @@ class Home extends Component {
     addGame = (gameData) => {
         const { isAuthenticated, user } = this.props.auth0;
         console.log(gameData);
-        
+
         if (isAuthenticated) {
             let gameInfo = {
                 gameName: gameData.name,
                 gameImageURL: gameData.image,
                 gameRating: gameData.rating,
-                gameNote:'',
+                gameNote: '',
                 userName: user.email
             };
             axios.post(`${process.env.REACT_APP_SERVER}/profile`, gameInfo)
 
         }
-        else { let msg = alert('Please Log In before Add ');
-    return msg; }
+        else {
+            let msg = alert('Please Log In before Add ');
+            return msg;
+        }
 
         // {isAuthenticated ? return axiosMsg : return msg;}
 
@@ -132,27 +134,33 @@ class Home extends Component {
                         </Form.Select>
                     </div>
 
+                    <div className="cardstyle">
+                        {this.state.game.map((item, index) => {
+                            return <CardForSearch addGame={this.addGame} key={index} game={item} gHandler={this.props.gHandler} />
+                        })}
+                    </div>
 
-                    {this.state.game.map((item, index) => {
-                        return <CardForSearch addGame={this.addGame} key={index} game={item} gHandler={this.props.gHandler} />
-                    })}
-
+                    <div className="cardstyle">
                     {this.state.game.map((item, index) => {
                         return <CardForSort addGame={this.addGame} key={index} sort={item} gHandler={this.props.gHandler} />
                     })}
+                </div>
 
+                <div className="cardstyle">
                     {this.state.gameTR.map((item, index) => {
                         return <CardForHome addGame={this.addGame} key={index} home={item} gHandler={this.props.gHandler} />
                     })}
-
-                    {this.state.gameNG.map((item, index) => {
-                        return <CardForHome2 addGame={this.addGame} key={index} home2={item} gHandler={this.props.gHandler} />
-                    })}
+                </div>
+                <div className="cardstyle">
+                {this.state.gameNG.map((item, index) => {
+                    return <CardForHome2 addGame={this.addGame} key={index} home2={item} gHandler={this.props.gHandler} />
+                })}
+            </div>
 
 
 
                 </>
-            </div>
+            </div >
         )
     }
 }
