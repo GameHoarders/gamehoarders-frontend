@@ -166,4 +166,3 @@ class Home extends Component {
 }
 
 export default withAuth0(Home);
-
