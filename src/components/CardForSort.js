@@ -125,19 +125,31 @@ class CardForSort extends Component {
         })
     }
 
-    UpdateCommentHandler =(CId , Body , ID)=>{
+    UpdateCommentHandler = (event, CId, ID) => {
         // commentId, body, gameId
-        let Info ={
-            commentId:CId,body:Body,gameId:ID
+        event.preventDefault();
+        let Body = event.target.commentU.value
+        let Info = {
+            commentId: CId, body: Body, gameId: ID
         }
 
-    axios.put(`${process.env.REACT_APP_SERVER}/gcomment`, Info).then(Data=>{
-        this.setState({
-            commentData:Data.data,
-            showCom:false 
+        axios.put(`${process.env.REACT_APP_SERVER}/gcomment`, Info).then(async Data => {
+            this.setState({
+                commentData: Data.data,
+                showCom: false,
+
+
+            })
+            await this.getCommentHandler();
+            this.setState({
+                showU: false
+            })
         })
-        this.getCommentHandler();
-    })
+    }
+    showU =()=>{
+        this.setState({
+            showU:true
+        })
     }
 
     render() {
@@ -201,10 +213,23 @@ class CardForSort extends Component {
                                             this.state.commentData.map((item, index) => {
                                                 return (<> <h4 key={index}>Name: {item.user}</h4>
                                                     <p>{item.body}</p>
+                                                    {isAuthenticated && user.name === item.user && this.state.showU &&
+                                                        <Form onSubmit={(event) => this.UpdateCommentHandler(event,item._id,  this.state.gameProfile.id)}>
+                                                            <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                                                                <Form.Label>Write a comment</Form.Label>
+                                                                <Form.Control name="commentU" as="textarea" defaultValue={item.body} />
+                                                            </Form.Group>
+                                                            <Button variant="primary" type="submit">
+                                                                GO
+                                                            </Button>
+                                                        </Form>
+
+                                                    }
                                                     {isAuthenticated && user.name === item.user && 
                                                     <>
                                                     <Button className="btnCard X" style={{width:'15%'}} onClick={()=>this.deleteCommentHandler(item._id ,this.state.gameProfile.id  )} >DELETE</Button>
-                                                    <Button className="btnCard X" style={{width:'15%'}} onClick={()=>this.UpdateCommentHandler(item._id, item.body ,this.state.gameProfile.id  )}>UPDATE</Button>
+                                                    <Button className="btnCard X" style={{ width: '15%' }} onClick={this.showU} >UPDATE</Button>
+                                                    
                                                     </>
                                                     }
                                                     </>
