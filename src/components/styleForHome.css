@@ -1,0 +1,87 @@
+form
+{
+    margin-left: 20%;
+    margin-right: 20%;
+    
+    padding-top: 100px;
+    margin-bottom: 20px;
+    font-family: 'Audiowide', cursive;
+
+}
+.formSort{
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-family: 'Audiowide', cursive;
+
+}
+.cardstyle
+{
+    display: flex;
+    flex-wrap: wrap;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-family: 'Audiowide', cursive;
+
+}
+.homePage
+{
+
+    background-image: url('./image/bg3.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+.form-label{
+    color: white;
+    font-size: 20px;
+    font-family: 'Audiowide', cursive;
+
+
+}
+.form-control{
+    background-color: black;
+    color: whitesmoke;
+    border: solid 1px gold;
+    font-size: 20px;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'Audiowide', cursive;
+
+}
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+.form-control:focus{
+    background-color: black;
+    color: whitesmoke;
+    border: solid 1px gold;
+    font-size: 20px;
+    font-family: 'Audiowide', cursive;
+
+}
+.form-control::selection{
+    background-color: black;
+    color: whitesmoke;
+    border: solid 1px gold;
+    font-size: 20px;
+    font-family: 'Audiowide', cursive;
+
+}
+.form-select{
+    background-color: black;
+    color: whitesmoke;
+    border: solid 1px gold;
+    font-size: 20px;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'Audiowide', cursive;
+
+}
+   
+    #search{display: block; margin-left: auto; margin-right: auto; font-family: 'Audiowide', cursive; }
+    

@@ -1,0 +1,51 @@
+.profile{
+    background-image: url('./image/pb.jfif');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+.cardProfile
+{
+    display: flex;
+    flex-wrap: wrap;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.cardGame
+{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.btnCard
+{
+    margin-top: 10px;
+    width: 100%;
+}
+.btnCard1
+{
+    width: 100%;
+}
+.cardUser{
+    
+    display: flex;
+    margin-left: 420px;
+    margin-top: 135px;
+    margin-bottom: 50px;
+}
+.imgUser
+{
+    border-radius: 50%;
+}
+.cardUsertxt{
+    margin-top: 40px;
+}
+.cardUsertxt h2{
+    font-weight: bold;
+    font-size: 50px;
+}
+.cardUsertxt h5{
+    margin-top: -10px;
+}

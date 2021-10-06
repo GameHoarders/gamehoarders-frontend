@@ -1,0 +1,29 @@
+
+#background{
+    /* background-color: #080808f1; */
+    /* background-color: hsla(#000, #000, #000, 0); */
+    background-color: rgba(0, 0, 0, 0.98);
+    margin-bottom: -20px;
+}
+#logoImg
+{
+    width: 250px;
+    height: 60px;
+    position: relative;
+    top: 20px;
+    margin-left: 100px;
+}
+.text{
+    text-align: center;
+    color: white;
+    position: relative;
+    bottom: 30px;
+}
+#icon{
+    
+  text-align: right;
+position: relative;
+bottom: 80px;
+padding-right: 20px;
+
+}

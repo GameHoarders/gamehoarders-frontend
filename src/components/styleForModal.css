@@ -1,0 +1,93 @@
+.gamePostar{
+    width: 650px;
+    /* height: 500px; */
+    border-radius: 10px;
+    /* box-shadow:5px 5px 10px rgb(211, 210, 208); */
+}
+.rateGame{
+    margin-left:255px ;
+    margin-top: 5px;
+}
+.parentDiv{
+    display: flex;
+}
+.paragraphGame 
+{
+    margin-left: 10px;
+    /* margin-right: auto; */
+}
+.storyGame{
+margin-bottom: 5px;
+}
+/* .requirementGame */
+.cardGame
+{
+    margin-bottom: 20px;
+    /* background-color: red; */
+}
+ .card
+{
+    /* margin-bottom: 20px; */
+    background-color: rgb(10, 10, 10);
+    /* background-color: transparent; */
+}
+
+
+.card-title{
+    color: whitesmoke;
+}
+.btn{
+background-color: gold;
+color: black;
+border: none;
+font-weight: bold;
+}
+.btn:hover{background-color: black; color: gold;font-weight: bold;border: none;}
+.btn:focus{background-color: black; color: gold;font-weight: bold; border: none;}
+.btnCard{
+    margin-top: 10px;
+}
+.special_modal .modal-content{
+    /* background-color: #222831; */
+    /* background-image: radial-gradient(#243B55, #141E30); */
+    background-image: radial-gradient(rgb(54, 56, 58),#000);
+    /* background-color: black; */
+    color: gold;
+ }
+ .Title{
+     font-size: 53px;
+     font-family: 'Audiowide', cursive;
+    }
+    
+
+h2
+{
+    font-size: 43px;
+    font-weight: bold;
+    font-family: 'Audiowide', cursive;
+}
+p{
+    font-size: 20px;
+    font-family: 'Audiowide', cursive;
+    color: white;
+}
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+.btnModal{
+    background-color: gold;
+    color: black;
+    font-family: 'Audiowide', cursive;
+    font-size: 20px;
+    padding-left: 10px;
+    padding-right:10px ;
+}
+.btnModal:hover{
+    background-color: black;
+    color: gold;
+    font-family: 'Audiowide', cursive;
+    font-size: 20px;
+}
+/* .modelNote{
+
+} */
+#exampleForm.ControlTextarea1{width: 100%;}
+#note{margin: 0; padding: 0;}
