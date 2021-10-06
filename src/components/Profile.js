@@ -26,6 +26,7 @@ class Profile extends Component {
     this.setState({
       games: gamesData.data,
     });
+    console.log(this.state.games);
   }
 
 
@@ -39,15 +40,6 @@ class Profile extends Component {
     });
   }
 
-  // updateGameHandler = (gameName, gameImageURL, gameRating, gameNote) => {
-  //   let gameInfo = {
-  //     gameName: gameName,
-  //     gameImageURL: gameImageURL,
-  //     gameRating: gameRating,
-  //     gameNote: gameNote,
-  //     userName: this.props.auth0.user.email,
-  //     gameID: this.state.gameID
-  //   };
     updateGameHandler = ( gameNote) => {
       let gameInfo = {
         gameNote: gameNote,
@@ -63,11 +55,6 @@ class Profile extends Component {
     ).catch(err => console.log(`error in updating the book: ${err}`));
   }
 
-  // showModalFun = () => {
-  //   this.setState({
-  //     showModal: !this.state.showModal,
-  //   });
-  // }
 
   showModalFun = (gameID,gameInform) => {
     this.setState({

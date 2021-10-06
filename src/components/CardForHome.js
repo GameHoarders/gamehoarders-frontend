@@ -5,8 +5,7 @@ import CardGroup from 'react-bootstrap/CardGroup'
 // import { Link } from "react-router-dom";
 import { Rating } from '@mui/material';
 import { withAuth0 } from '@auth0/auth0-react';
-import Form from 'react-bootstrap/Form'
-
+import Form from 'react-bootstrap/Form';
 
 // import Rating from '@mui/material/Rating';
 import axios from 'axios';
@@ -23,6 +22,7 @@ class CardForHome extends Component {
             showCom: false,
             commentData: [],
             showU: false
+
         }
     }
     getCommentHandler = () => {
@@ -163,10 +163,14 @@ class CardForHome extends Component {
                                 <Rating name="read-only" value={this.props.home.rating} precision={0.5} readOnly />
                             </Card.Text>
                         </Card.Body>
+
                         <Button variant="primary" onClick={() => {
                             this.props.addGame(this.props.home)
                         }}   > Add To Wish List</Button>
+
                         <Button className="btnCard" onClick={this.getInfo} >More Info</Button>
+
+                       
                     </Card>
                 </CardGroup>
                 {this.state.showModal &&
