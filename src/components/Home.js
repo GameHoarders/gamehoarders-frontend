@@ -110,13 +110,13 @@ class Home extends Component {
     render() {
         return (
             <div className="homePage">
-                <Modal className="special_modal" show={this.state.showAlert} onHide={()=>this.setState({showAlert: false})}>
+                <Modal className="special_modal" show={this.state.showAlert} onHide={() => this.setState({ showAlert: false })}>
                     <Modal.Header closeButton>
                         <Modal.Title>Error</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>Please Log In To Add The Game To Your Wish List</Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={()=>this.setState({showAlert: false})}>
+                        <Button variant="secondary" onClick={() => this.setState({ showAlert: false })}>
                             Close
                         </Button>
                     </Modal.Footer>
@@ -132,13 +132,9 @@ class Home extends Component {
                 <>
                     <Form onSubmit={this.search}>
                         <Form.Group className="mb-3">
-                            <Form.Label>Search</Form.Label>
                             <Form.Control type="text" name="searchForGame" placeholder="Search for Games" />
-                            <Form.Text className="text-muted">
-                                You Can Write any Game Name
-                            </Form.Text>
                         </Form.Group>
-                        <Button variant="primary" type="submit">
+                        <Button variant="primary" type="submit" id="search" >
                             Search
                         </Button>
                     </Form>
@@ -159,6 +155,7 @@ class Home extends Component {
                         </Form.Select>
                     </div>
 
+
                     <div className="cardstyle">
                         {this.state.game.map((item, index) => {
                             return <CardForSearch a={this.state.showAlert} addGame={this.addGame} key={index} game={item} gHandler={this.props.gHandler} />
@@ -172,18 +169,17 @@ class Home extends Component {
                     </div>
 
                     <div className="cardstyle">
-                        {this.state.gameTR.map((item, index) => {
-                            return <CardForHome a={this.state.showAlert} addGame={this.addGame} key={index} home={item} gHandler={this.props.gHandler} />
-                        })}
+                    {
+                        this.state.gameTR.map((item, index) => {
+                            <h2>Top</h2>
+                        return <CardForHome a={this.state.showAlert} addGame={this.addGame} key={index} home={item} gHandler={this.props.gHandler} />          
+                    })}
                     </div>
                     <div className="cardstyle">
                         {this.state.gameNG.map((item, index) => {
                             return <CardForHome2 addGame={this.addGame} key={index} home2={item} gHandler={this.props.gHandler} />
                         })}
                     </div>
-
-
-
                 </>
             </div >
         )

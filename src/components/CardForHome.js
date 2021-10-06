@@ -170,7 +170,7 @@ class CardForHome extends Component {
 
                         <Button className="btnCard" onClick={this.getInfo} >More Info</Button>
 
-                       
+
                     </Card>
                 </CardGroup>
                 {this.state.showModal &&
@@ -197,32 +197,34 @@ class CardForHome extends Component {
                                         <h2>Requirement</h2>
                                         <p>{this.state.requirements}</p>
                                     </div>
-                                    <div className="CommentGame">
+                                    <div className="CommentGame" >
                                         <h2>Comments</h2>
                                         {this.state.showCom &&
                                             this.state.commentData.map((item, index) => {
-                                                return (<> <h4 key={index}>Name: {item.user}</h4>
-                                                    <p>{item.body}</p>
-                                                    {isAuthenticated && user.name === item.user && this.state.showU &&
-                                                        <Form onSubmit={(event) => this.UpdateCommentHandler(event, item._id, this.state.gameProfile.id)}>
-                                                            <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                                                                <Form.Label>Write a comment</Form.Label>
-                                                                <Form.Control name="commentU" as="textarea" defaultValue={item.body} />
-                                                            </Form.Group>
-                                                            <Button variant="primary" type="submit" >
-                                                                GO
-                                                            </Button>
-                                                        </Form>
+                                                return (<>
+                                                    <div>
+                                                        <h4 key={index}>Name: {item.user}</h4>
+                                                        <p>{item.body}</p>
+                                                        {isAuthenticated && user.name === item.user && this.state.showU &&
+                                                            <Form style={{marginTop:'0', paddingTop:'0', marginBottom:'50px'}} onSubmit={(event) => this.UpdateCommentHandler(event, item._id, this.state.gameProfile.id)}>
+                                                                <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                                                                    <Form.Label >Write a comment</Form.Label>
+                                                                    <Form.Control style={{width:'100%'}} name="commentU" as="textarea" defaultValue={item.body} />
+                                                                </Form.Group>
+                                                                <Button variant="primary" type="submit" style={{float:'right'}} >
+                                                                    GO
+                                                                </Button>
+                                                            </Form>
 
-                                                    }
-                                                    {isAuthenticated && user.name === item.user &&
-                                                        <>
+                                                        }
+                                                        {isAuthenticated && user.name === item.user &&
+                                                            <>
 
-                                                            <Button className="btnCard X" style={{ width: '15%' }} onClick={() => this.deleteCommentHandler(item._id, this.state.gameProfile.id)} >DELETE</Button>
-
-                                                            <Button className="btnCard X" style={{ width: '15%' }} onClick={this.showU} >UPDATE</Button>
-                                                        </>
-                                                    }
+                                                                <Button className="btnCard X" style={{ width: '15%' }} onClick={() => this.deleteCommentHandler(item._id, this.state.gameProfile.id)} >DELETE</Button>
+                                                                <Button className="btnCard X" style={{ width: '15%', marginLeft: '20px' }} onClick={this.showU} >UPDATE</Button>
+                                                            </>
+                                                        }
+                                                    </div>
                                                 </>
                                                 )
                                             })
@@ -237,9 +239,9 @@ class CardForHome extends Component {
                                     <Form onSubmit={this.commentHandler}>
                                         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                                             <Form.Label>Write a comment</Form.Label>
-                                            <Form.Control name="comment" as="textarea" rows={3} />
+                                            <Form.Control name="comment" style={{ width: '100%' }} as="textarea" rows={3} />
                                         </Form.Group>
-                                        <Button variant="primary" type="submit">
+                                        <Button variant="primary" type="submit" style={{ marginLeft: '828px' }} >
                                             Post
                                         </Button>
                                     </Form>

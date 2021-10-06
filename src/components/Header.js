@@ -16,7 +16,7 @@ class Header extends Component {
                 <>
                     <header>
                         <img className="logoImg" src={logo} />
-                        {isAuthenticated ? <LogoutButton /> : <LoginButton />}
+                        
                         <div class="navigation">
                             <div class="navigation-items">
                                 <Link to="/">Home</Link>
@@ -28,7 +28,9 @@ class Header extends Component {
                                 
                                 <Link to="/aboutUs">AboutUs</Link>
                             </div>
+                            
                         </div>
+                        {isAuthenticated ? <LogoutButton  /> : <LoginButton />}
                     </header>
                 </>
                 

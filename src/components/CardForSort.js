@@ -214,12 +214,12 @@ class CardForSort extends Component {
                                                 return (<> <h4 key={index}>Name: {item.user}</h4>
                                                     <p>{item.body}</p>
                                                     {isAuthenticated && user.name === item.user && this.state.showU &&
-                                                        <Form onSubmit={(event) => this.UpdateCommentHandler(event,item._id,  this.state.gameProfile.id)}>
+                                                        <Form style={{marginTop:'0', paddingTop:'0', marginBottom:'50px'}} onSubmit={(event) => this.UpdateCommentHandler(event,item._id,  this.state.gameProfile.id)}>
                                                             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                                                                 <Form.Label>Write a comment</Form.Label>
-                                                                <Form.Control name="commentU" as="textarea" defaultValue={item.body} />
+                                                                <Form.Control style={{width:'100%'}} name="commentU" as="textarea" defaultValue={item.body} />
                                                             </Form.Group>
-                                                            <Button variant="primary" type="submit">
+                                                            <Button variant="primary" style={{float:'right'}} type="submit">
                                                                 GO
                                                             </Button>
                                                         </Form>
@@ -228,7 +228,7 @@ class CardForSort extends Component {
                                                     {isAuthenticated && user.name === item.user && 
                                                     <>
                                                     <Button className="btnCard X" style={{width:'15%'}} onClick={()=>this.deleteCommentHandler(item._id ,this.state.gameProfile.id  )} >DELETE</Button>
-                                                    <Button className="btnCard X" style={{ width: '15%' }} onClick={this.showU} >UPDATE</Button>
+                                                    <Button className="btnCard X" style={{ width: '15%', marginLeft: '20px' }} onClick={this.showU} >UPDATE</Button>
                                                     
                                                     </>
                                                     }
@@ -245,9 +245,9 @@ class CardForSort extends Component {
                                         <Form onSubmit={this.commentHandler}>
                                             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                                                 <Form.Label>Write a comment</Form.Label>
-                                                <Form.Control name="comment"  as="textarea" rows={3} />
+                                                <Form.Control style={{width:'100%'}} name="comment"  as="textarea" rows={3} />
                                             </Form.Group>
-                                            <Button variant="primary" type="submit">
+                                            <Button variant="primary" style={{marginLeft:'828px'}} type="submit">
                                                 Post
                                             </Button>
                                         </Form>

@@ -2,7 +2,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
+    font-family: 'Audiowide', cursive;
+
   }
   .logoImg
   {
@@ -45,7 +46,10 @@
   
   header .navigation{
     position: relative;
+    margin-left: 550px;
   }
+  @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+
   
   header .navigation .navigation-items a{
     position: relative;
