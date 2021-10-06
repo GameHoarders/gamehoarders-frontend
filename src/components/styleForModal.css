@@ -29,7 +29,10 @@ margin-bottom: 5px;
 {
     /* margin-bottom: 20px; */
     background-color: rgb(10, 10, 10);
+    /* background-color: transparent; */
 }
+
+
 .card-title{
     color: whitesmoke;
 }
@@ -53,21 +56,19 @@ font-weight: bold;
  }
  .Title{
      font-size: 53px;
-     font-family: 'Staatliches', cursive;
+     font-family: 'Audiowide', cursive;
     }
     
-@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
+
 h2
 {
     font-size: 43px;
     font-weight: bold;
-    font-family: 'Cinzel', serif;
+    font-family: 'Audiowide', cursive;
 }
-@import url('https://fonts.googleapis.com/css2?family=Merienda&display=swap');
 p{
     font-size: 20px;
-    font-family: 'Merienda', cursive;
+    font-family: 'Audiowide', cursive;
     color: white;
 }
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
@@ -85,3 +86,8 @@ p{
     font-family: 'Audiowide', cursive;
     font-size: 20px;
 }
+/* .modelNote{
+
+} */
+#exampleForm.ControlTextarea1{width: 100%;}
+#note{margin: 0; padding: 0;}

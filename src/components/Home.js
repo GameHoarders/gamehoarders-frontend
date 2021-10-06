@@ -9,6 +9,8 @@ import Profile from './Profile'
 import CardForHome from './CardForHome'
 import CardForHome2 from './CardForHome2'
 import { withAuth0 } from '@auth0/auth0-react';
+import Modal from 'react-bootstrap/Modal'
+import './styleForModal.css';
 // import { withAuth0 } from '@auth0/auth0-react';
 class Home extends Component {
     constructor(props) {
@@ -87,14 +89,18 @@ class Home extends Component {
                 gameImageURL: gameData.image,
                 gameRating: gameData.rating,
                 gameNote: '',
-                userName: user.email
+                userName: user.email,
+                showAlert: false
             };
+
             axios.post(`${process.env.REACT_APP_SERVER}/profile`, gameInfo)
 
         }
         else {
-            let msg = alert('Please Log In before Add ');
-            return msg;
+            // let msg = alert('Please Log In before Add ');
+            this.setState({
+                showAlert: true
+            })
         }
 
         // {isAuthenticated ? return axiosMsg : return msg;}
@@ -104,16 +110,31 @@ class Home extends Component {
     render() {
         return (
             <div className="homePage">
+                <Modal className="special_modal" show={this.state.showAlert} onHide={() => this.setState({ showAlert: false })}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Error</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Please Log In To Add The Game To Your Wish List</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={() => this.setState({ showAlert: false })}>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+                {/* {this.props.a &&
+                            <>
+                                <Alert variant='danger'>
+                                    Please Login
+                                </Alert>
+                            </>
+                        } */}
+
                 <>
                     <Form onSubmit={this.search}>
                         <Form.Group className="mb-3">
-                            <Form.Label>Search</Form.Label>
                             <Form.Control type="text" name="searchForGame" placeholder="Search for Games" />
-                            <Form.Text className="text-muted">
-                                You Can Write any Game Name
-                            </Form.Text>
                         </Form.Group>
-                        <Button variant="primary" type="submit">
+                        <Button variant="primary" type="submit" id="search" >
                             Search
                         </Button>
                     </Form>
@@ -134,31 +155,31 @@ class Home extends Component {
                         </Form.Select>
                     </div>
 
+
                     <div className="cardstyle">
                         {this.state.game.map((item, index) => {
-                            return <CardForSearch addGame={this.addGame} key={index} game={item} gHandler={this.props.gHandler} />
+                            return <CardForSearch a={this.state.showAlert} addGame={this.addGame} key={index} game={item} gHandler={this.props.gHandler} />
                         })}
                     </div>
 
                     <div className="cardstyle">
-                    {this.state.game.map((item, index) => {
-                        return <CardForSort addGame={this.addGame} key={index} sort={item} gHandler={this.props.gHandler} />
+                        {this.state.game.map((item, index) => {
+                            return <CardForSort addGame={this.addGame} key={index} sort={item} gHandler={this.props.gHandler} />
+                        })}
+                    </div>
+
+                    <div className="cardstyle">
+                    {
+                        this.state.gameTR.map((item, index) => {
+                            <h2>Top</h2>
+                        return <CardForHome a={this.state.showAlert} addGame={this.addGame} key={index} home={item} gHandler={this.props.gHandler} />          
                     })}
-                </div>
-
-                <div className="cardstyle">
-                    {this.state.gameTR.map((item, index) => {
-                        return <CardForHome addGame={this.addGame} key={index} home={item} gHandler={this.props.gHandler} />
-                    })}
-                </div>
-                <div className="cardstyle">
-                {this.state.gameNG.map((item, index) => {
-                    return <CardForHome2 addGame={this.addGame} key={index} home2={item} gHandler={this.props.gHandler} />
-                })}
-            </div>
-
-
-
+                    </div>
+                    <div className="cardstyle">
+                        {this.state.gameNG.map((item, index) => {
+                            return <CardForHome2 addGame={this.addGame} key={index} home2={item} gHandler={this.props.gHandler} />
+                        })}
+                    </div>
                 </>
             </div >
         )

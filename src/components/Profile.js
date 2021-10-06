@@ -10,14 +10,15 @@ import CardGroup from 'react-bootstrap/CardGroup'
 class Profile extends Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = 
+    {
       games: [],
       showModal: false,
       gameID: '',
       gameInform: {}
     };
   }
-  
+
   componentDidMount = async () => {
     const { user } = this.props.auth0;
     let gamesData = await axios.get(`${process.env.REACT_APP_SERVER}/profile?userName=${user.email}`);
@@ -25,6 +26,7 @@ class Profile extends Component {
     this.setState({
       games: gamesData.data,
     });
+    console.log(this.state.games);
   }
 
 
@@ -38,15 +40,6 @@ class Profile extends Component {
     });
   }
 
-  // updateGameHandler = (gameName, gameImageURL, gameRating, gameNote) => {
-  //   let gameInfo = {
-  //     gameName: gameName,
-  //     gameImageURL: gameImageURL,
-  //     gameRating: gameRating,
-  //     gameNote: gameNote,
-  //     userName: this.props.auth0.user.email,
-  //     gameID: this.state.gameID
-  //   };
     updateGameHandler = ( gameNote) => {
       let gameInfo = {
         gameNote: gameNote,
@@ -62,11 +55,6 @@ class Profile extends Component {
     ).catch(err => console.log(`error in updating the book: ${err}`));
   }
 
-  // showModalFun = () => {
-  //   this.setState({
-  //     showModal: !this.state.showModal,
-  //   });
-  // }
 
   showModalFun = (gameID,gameInform) => {
     this.setState({
@@ -82,9 +70,10 @@ class Profile extends Component {
     const { user, isAuthenticated } = this.props.auth0;
 
     return isAuthenticated && (
+      <div className="profile">
       <>
-
-        <Card>
+      
+        <Card style={{backgroundColor:'transparent'}}>
           <div className="cardUser">
           <Card.Img className="imgUser" variant="top" src={user.picture} style={{ width: '13rem' }} />
           <Card.Body>
@@ -123,9 +112,8 @@ class Profile extends Component {
           )
         })}
           </div>
-        
-
       </>
+      </div>
     );
   }
 }

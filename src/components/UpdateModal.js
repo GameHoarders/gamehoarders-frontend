@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form'
 import { withAuth0 } from '@auth0/auth0-react';
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button';
+import './styleForModal.css';
 
 class UpdateModal extends Component {
     submitHandler= async (event)=>{
@@ -15,17 +16,16 @@ class UpdateModal extends Component {
         console.log(user.email);
         return (
             <>
-                <Modal show={true} onHide={this.props.close}>
+                <Modal className="special_modal"  show={true} onHide={this.props.close}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Modal heading</Modal.Title>
+                        <Modal.Title>Write Private Note</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <Form onSubmit={this.submitHandler}>
+                        <Form id="note" onSubmit={this.submitHandler}>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                                <Form.Label>Write Private Note</Form.Label>
-                                <Form.Control name="note" defaultValue={this.props.data.note} as="textarea" rows={3} />
+                                <Form.Control style={{width:'100%'}} name="note" defaultValue={this.props.data.note} as="textarea" rows={3} />
                             </Form.Group>
-                            <Button variant="primary" type="submit">
+                            <Button style={{float:'right'}} variant="primary" type="submit">
                                 Update
                             </Button>
                         </Form>

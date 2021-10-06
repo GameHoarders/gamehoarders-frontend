@@ -1,3 +1,9 @@
+.profile{
+    background-image: url('./image/pb.jfif');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
 .cardProfile
 {
     display: flex;
@@ -6,7 +12,7 @@
     margin-left: auto;
     margin-right: auto;
     justify-content: space-between;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 .cardGame
 {
@@ -23,15 +29,15 @@
     width: 100%;
 }
 .cardUser{
+    
     display: flex;
     margin-left: 420px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 135px;
+    margin-bottom: 50px;
 }
 .imgUser
 {
     border-radius: 50%;
-    box-shadow: 8px 8px 15px rgb(190, 190, 190);
 }
 .cardUsertxt{
     margin-top: 40px;

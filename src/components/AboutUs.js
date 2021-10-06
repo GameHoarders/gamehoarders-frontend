@@ -8,7 +8,7 @@ import Footer from './Footer';
     class AboutUS extends Component {
         render() {
             return (
-                <>
+                <div className="aboutus">
                 <div id="container">
                     
                     <div class="cards">
@@ -34,12 +34,13 @@ import Footer from './Footer';
                             <h2>Emad Idris</h2>
                             <p>Computer Science Ain Shams University</p>
                             <a href="https://github.com/EmadIdris" target="_blank"><i style={{textAlign: "center"}} class="fab fa-github fa-2x"> Github</i></a>
+                        
                         </div>
                         <img src={`${Emad}`} alt="Ahmad AbuRumuh"/>
                     </div>
 
             </div >
-            </>
+            </div>
         );
         }
     }
