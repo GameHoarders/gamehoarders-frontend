@@ -1,6 +1,15 @@
+.aboutus{
+  /* background-color: black; */
+  background-image: url('./image/au.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
 #container{
-    margin-top: 20px;
+    /* margin-top: 20px; */
+    padding-top: 60px;
     margin-left: auto;
+    padding-bottom:20px ;
     margin-right: auto;
     width: 90%;
     display: flex;
@@ -8,8 +17,7 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    flex-wrap: wrap;
-    margin-bottom: 60px;
+    flex-wrap: wrap; 
   }
   
   .cards{
@@ -22,12 +30,15 @@
     display: flex;
     justify-content: flex-start;
     align-items:center;
-    background:linear-gradient(45deg,#254245,#62A894) ;
+    background:linear-gradient(45deg,#0f0c0c,rgb(12, 11, 11)) ;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 3px 5px 8px 0px rgba(0, 0, 0, 0.3);
   border-radius: 8px;
   
     transition: 0.5s;
   }
+  /* img{
+    border-radius: 50%;
+  } */
   .cards:hover{
     height: 400px;
   }
@@ -38,13 +49,14 @@
     transform: translateX(-50%);
     height: 350px;
     transition: 0.5s;
+    /* border-radius: 50%; */
   
   }
   #container .cards:hover img{
     left: 80%;
     height: 400px;
-  border-radius: 8px;
-  
+  /* border-radius: 8px; */
+  border-radius: 50%;
   }
   #container .cards .content{
     position: relative;
@@ -52,7 +64,7 @@
     left: 20%;
     opacity: 0;
     visibility: hidden;
-    padding: 20px 20px 20px 40px;
+    padding: 20px 20px 20px 70px;
     transition: 0.5s;
   }
   #container .cards:hover .content{

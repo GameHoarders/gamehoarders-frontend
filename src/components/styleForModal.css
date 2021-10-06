@@ -29,7 +29,10 @@ margin-bottom: 5px;
 {
     /* margin-bottom: 20px; */
     background-color: rgb(10, 10, 10);
+    /* background-color: transparent; */
 }
+
+
 .card-title{
     color: whitesmoke;
 }

@@ -10,14 +10,15 @@ import CardGroup from 'react-bootstrap/CardGroup'
 class Profile extends Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = 
+    {
       games: [],
       showModal: false,
       gameID: '',
       gameInform: {}
     };
   }
-  
+
   componentDidMount = async () => {
     const { user } = this.props.auth0;
     let gamesData = await axios.get(`${process.env.REACT_APP_SERVER}/profile?userName=${user.email}`);
@@ -82,9 +83,10 @@ class Profile extends Component {
     const { user, isAuthenticated } = this.props.auth0;
 
     return isAuthenticated && (
+      <div className="profile">
       <>
-
-        <Card>
+      
+        <Card style={{backgroundColor:'transparent'}}>
           <div className="cardUser">
           <Card.Img className="imgUser" variant="top" src={user.picture} style={{ width: '13rem' }} />
           <Card.Body>
@@ -123,9 +125,8 @@ class Profile extends Component {
           )
         })}
           </div>
-        
-
       </>
+      </div>
     );
   }
 }
